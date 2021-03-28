@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
-* Студент: [R P](https://up.htmlacademy.ru/javascript/21/user/1329715).
-* Наставник: `Неизвестно`.
+* Студент: Olga
+* Наставник: Roman.
 
 ---
 
