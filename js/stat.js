@@ -4,34 +4,35 @@ const CLOUD_HEIGHT = 270;
 const CLOUD_X = 100;
 const CLOUD_Y = 10;
 const GAP = 10;
+const BAR_GAP = 50;
 const BAR_WIDTH = 40;
 const maxBarHeight = 150;
 const barEnd = 240;
 
-const renderCloud = function (ctx, x, y, color) {
+const renderCloud = (ctx, x, y, color) => {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-const renderText = function (ctx, x, y, text) {
+const renderText = (ctx, x, y, text) => {
   ctx.fillStyle = `#000`;
   ctx.font = `16px PT Mono`;
   ctx.textBaseline = `hanging`;
   ctx.fillText(text, x, y);
 };
 
-const getRandomArbitrary = function (min, max) {
+const getRandomNumber = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-const renderBar = function (ctx, x, yTextName, yRect, yTextTime, color, name, barWidth, barHeight, time) {
+const renderBar = (ctx, x, yTextName, yRect, yTextTime, color, name, barWidth, barHeight, time) => {
   renderText(ctx, x, yTextName, name);
   ctx.fillStyle = color;
   ctx.fillRect(x, yRect, barWidth, barHeight);
   renderText(ctx, x, yTextTime, time);
 };
 
-window.renderStatistics = function (ctx, names, times) {
+window.renderStatistics = (ctx, names, times) => {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, `rgba(0, 0, 0, 0.7)`);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, `#fff`);
 
@@ -47,9 +48,9 @@ window.renderStatistics = function (ctx, names, times) {
     const barHeight = (time / maxTime * maxBarHeight);
 
     if (name === `Вы`) {
-      renderBar(ctx, CLOUD_X + 8 * GAP + (2 * BAR_WIDTH + GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `rgba(255, 0, 0, 1)`, name, BAR_WIDTH, barHeight, time);
+      renderBar(ctx, CLOUD_X + GAP + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `rgba(255, 0, 0, 1)`, name, BAR_WIDTH, barHeight, time);
     } else {
-      renderBar(ctx, CLOUD_X + 8 * GAP + (2 * BAR_WIDTH + GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `hsl(240, ${getRandomArbitrary(20, 100)}%, 50%)`, name, BAR_WIDTH, barHeight, time);
+      renderBar(ctx, CLOUD_X + GAP + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `hsl(240, ${getRandomNumber(20, 100)}%, 50%)`, name, BAR_WIDTH, barHeight, time);
     }
   }
 };
