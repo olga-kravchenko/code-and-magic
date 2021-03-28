@@ -1,12 +1,12 @@
 'use strict';
 
 var fireballSize = 22;
-var getFireballSpeed = function (isMovingLeft) {
+var getFireballSpeed = (isMovingLeft) => {
   return isMovingLeft ? 2 : 5;
 };
 var wizardSpeed = 3;
 var wizardWidth = 70;
-var getWizardHeight = function () {
+var getWizardHeight = () => {
   return 1.337 * wizardWidth;
 };
 
