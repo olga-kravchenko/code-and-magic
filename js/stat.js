@@ -21,10 +21,6 @@ const renderText = (ctx, x, y, text) => {
   ctx.fillText(text, x, y);
 };
 
-const getRandomNumber = (min, max) => {
-  return Math.random() * (max - min) + min;
-};
-
 const renderBar = (ctx, x, yTextName, yRect, yTextTime, color, name, barWidth, barHeight, time) => {
   renderText(ctx, x, yTextName, name);
   ctx.fillStyle = color;
