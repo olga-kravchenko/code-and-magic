@@ -8,116 +8,129 @@ const FIREBALL_COLORS = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
 const MIN_ARRAY_INDEX = 0;
 const MIN_NAME_LENGTH = 2;
 
-const userDialog = document.querySelector(`.setup`);
-const setupSimilar = userDialog.querySelector(`.setup-similar`);
-const setupOpenIcon = document.querySelector(`.setup-open-icon`);
-const setupClose = userDialog.querySelector(`.setup-close`);
-const inputUserName = userDialog.querySelector(`.setup-user-name`);
-const wizardCoat = userDialog.querySelector(`.setup-wizard .wizard-coat`);
-const wizardEyes = userDialog.querySelector(`.setup-wizard .wizard-eyes`);
-const fireBall = userDialog.querySelector(`.setup-fireball-wrap`);
-const inputWizardCoat = userDialog.querySelector(`input[name="coat-color"]`);
-const inputWizardEyes = userDialog.querySelector(`input[name="eyes-color"]`);
-const inputFireBall = userDialog.querySelector(`input[name="fireball-color"]`);
+const modal = document.querySelector(`.setup`);
+const similarWizardsBlock = modal.querySelector(`.setup-similar`);
+const avatar = document.querySelector(`.setup-open-icon`);
+const closeButton = modal.querySelector(`.setup-close`);
+const inputName = modal.querySelector(`.setup-user-name`);
+const coatColor = modal.querySelector(`.setup-wizard .wizard-coat`);
+const wizardEyesColor = modal.querySelector(`.setup-wizard .wizard-eyes`);
+const fireBallColor = modal.querySelector(`.setup-fireball-wrap`);
+const inputWizardCoat = modal.querySelector(`input[name="coat-color"]`);
+const inputWizardEyes = modal.querySelector(`input[name="eyes-color"]`);
+const inputFireBall = modal.querySelector(`input[name="fireball-color"]`);
 
-const similarListElement = document.querySelector(`.setup-similar-list`);
+const similarWizardsList = modal.querySelector(`.setup-similar-list`);
 const similarWizardTemplate = document.querySelector(`#similar-wizard-template`).content;
 
-const onPopupEscPress = (evt) => {
-  if (evt.key === `Escape` && inputUserName !== document.activeElement) {
+const onEscKeydown = (evt) => {
+  if (evt.key === `Escape` && inputName !== document.activeElement) {
     evt.preventDefault();
     closePopup();
   }
 };
 
-const onSetupCloseEnterPress = (evt) => {
+const onCloseEnterKeydown = (evt) => {
   if (evt.key === `Enter`) {
     closePopup();
   }
 };
 
-const onSetupOpenIconEnterPress = (evt) => {
+const onAvatarEnterKeydown = (evt) => {
   if (evt.key === `Enter`) {
-    openPopup();
+    openModal();
   }
 };
 
-const checkInputUserNameValue = () => {
-  const valueLength = inputUserName.value.trim().length;
+const checkInput = () => {
+  const length = inputName.value.trim().length;
 
-  if (valueLength < MIN_NAME_LENGTH) {
-    inputUserName.setCustomValidity(`Ещё ` + (MIN_NAME_LENGTH - valueLength) + ` симв.`);
+  if (length < MIN_NAME_LENGTH) {
+    inputName.setCustomValidity(`Ещё ` + (MIN_NAME_LENGTH - length) + ` симв.`);
   } else {
-    inputUserName.setCustomValidity(``);
+    inputName.setCustomValidity(``);
   }
 
-  inputUserName.reportValidity();
+  inputName.reportValidity();
 };
 
-const changeWizardCoat = () => {
-  let newColor = WIZARD_COAT_COLORS[getRandomNumber(MIN_ARRAY_INDEX, WIZARD_COAT_COLORS.length)];
-  while (newColor === inputWizardCoat.value) {
-    newColor = WIZARD_COAT_COLORS[getRandomNumber(MIN_ARRAY_INDEX, WIZARD_COAT_COLORS.length)];
+const getNewColor = (colors, input, styleOfElement) => {
+  let newColor = colors[getRandomNumber(MIN_ARRAY_INDEX, colors.length)];
+  while (newColor === input.value) {
+    newColor = colors[getRandomNumber(MIN_ARRAY_INDEX, colors.length)];
   }
-  wizardCoat.style.fill = newColor;
-  inputWizardCoat.value = wizardCoat.style.fill;
-};
 
-const changeWizardEyes = () => {
-  let newColor = WIZARD_EYES_COLORS[getRandomNumber(MIN_ARRAY_INDEX, WIZARD_EYES_COLORS.length)];
-  while (newColor === inputWizardEyes.value) {
-    newColor = WIZARD_EYES_COLORS[getRandomNumber(MIN_ARRAY_INDEX, WIZARD_EYES_COLORS.length)];
+  if (styleOfElement === fireBallColor) {
+    styleOfElement.style.background = newColor;
+    inputFireBall.value = newColor;
+  } else {
+    styleOfElement.style.fill = newColor;
+    input.value = newColor;
   }
-  wizardEyes.style.fill = newColor;
-  inputWizardEyes.value = wizardEyes.style.fill;
 };
 
-const changeFireBall = () => {
-  let newColor = FIREBALL_COLORS[getRandomNumber(MIN_ARRAY_INDEX, FIREBALL_COLORS.length)];
-  while (newColor === inputFireBall.value) {
-    newColor = FIREBALL_COLORS[getRandomNumber(MIN_ARRAY_INDEX, FIREBALL_COLORS.length)];
-  }
-  fireBall.style.backgroundColor = newColor;
-  inputFireBall.value = fireBall.style.backgroundColor;
+const changeCoatColor = () => {
+  getNewColor(WIZARD_COAT_COLORS, inputWizardCoat, coatColor);
 };
 
-const openPopup = () => {
-  userDialog.classList.remove(`hidden`);
-  setupSimilar.classList.remove(`hidden`);
+const changeWizardEyesColor = () => {
+  getNewColor(WIZARD_EYES_COLORS, inputWizardEyes, wizardEyesColor);
+};
 
-  setupClose.addEventListener(`keydown`, onSetupCloseEnterPress);
-  document.addEventListener(`keydown`, onPopupEscPress);
-  setupClose.addEventListener(`click`, closePopup);
+const changeFireBallColor = () => {
+  getNewColor(FIREBALL_COLORS, inputFireBall, fireBallColor);
+};
 
-  setupOpenIcon.removeEventListener(`keydown`, onSetupOpenIconEnterPress);
-  setupOpenIcon.removeEventListener(`click`, openPopup);
+const addCallBacksToCloseModal = () => {
+  closeButton.addEventListener(`keydown`, onCloseEnterKeydown);
+  document.addEventListener(`keydown`, onEscKeydown);
+  closeButton.addEventListener(`click`, closePopup);
+};
 
-  inputUserName.addEventListener(`input`, checkInputUserNameValue);
-  wizardCoat.addEventListener(`click`, changeWizardCoat);
-  wizardEyes.addEventListener(`click`, changeWizardEyes);
-  fireBall.addEventListener(`click`, changeFireBall);
+const removeCallBacksToCloseModal = () => {
+  closeButton.removeEventListener(`keydown`, onCloseEnterKeydown);
+  document.removeEventListener(`keydown`, onEscKeydown);
+  closeButton.removeEventListener(`click`, closePopup);
+};
+
+const addCallBacksForForm = () => {
+  inputName.addEventListener(`input`, checkInput);
+  coatColor.addEventListener(`click`, changeCoatColor);
+  wizardEyesColor.addEventListener(`click`, changeWizardEyesColor);
+  fireBallColor.addEventListener(`click`, changeFireBallColor);
+};
+
+const removeCallBacksForForm = () => {
+  inputName.removeEventListener(`input`, checkInput);
+  coatColor.removeEventListener(`click`, changeCoatColor);
+  wizardEyesColor.removeEventListener(`click`, changeWizardEyesColor);
+  fireBallColor.removeEventListener(`click`, changeFireBallColor);
+};
+
+const showModal = () => {
+  modal.classList.remove(`hidden`);
+  similarWizardsBlock.classList.remove(`hidden`);
+};
+
+const hideModal = () => {
+  modal.classList.add(`hidden`);
+  similarWizardsBlock.classList.add(`hidden`);
+};
+
+const openModal = () => {
+  showModal();
+  addCallBacksToCloseModal();
+  addCallBacksForForm();
 };
 
 const closePopup = () => {
-  userDialog.classList.add(`hidden`);
-  setupSimilar.classList.add(`hidden`);
-
-  setupClose.removeEventListener(`keydown`, onSetupCloseEnterPress);
-  document.removeEventListener(`keydown`, onPopupEscPress);
-  setupClose.removeEventListener(`click`, closePopup);
-  inputUserName.removeEventListener(`input`, checkInputUserNameValue);
-
-  setupOpenIcon.addEventListener(`keydown`, onSetupOpenIconEnterPress);
-  setupOpenIcon.addEventListener(`click`, openPopup);
-
-  wizardCoat.removeEventListener(`click`, changeWizardCoat);
-  wizardEyes.removeEventListener(`click`, changeWizardEyes);
-  fireBall.removeEventListener(`click`, changeFireBall);
+  hideModal();
+  removeCallBacksToCloseModal();
+  removeCallBacksForForm();
 };
 
-setupOpenIcon.addEventListener(`keydown`, onSetupOpenIconEnterPress);
-setupOpenIcon.addEventListener(`click`, openPopup);
-setupClose.addEventListener(`click`, closePopup);
+avatar.addEventListener(`keydown`, onAvatarEnterKeydown);
+avatar.addEventListener(`click`, openModal);
 
 const getRandomWizards = (quantity) => {
   const wizards = [];
@@ -141,14 +154,14 @@ const getWizardDomElement = (wizard) => {
   return newWizard;
 };
 
-const fillDomElementByWizards = (wizards) => {
+const fillPageByWizards = (wizards) => {
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < wizards.length; i++) {
     const newWizard = getWizardDomElement(wizards[i]);
     fragment.appendChild(newWizard);
   }
-  similarListElement.appendChild(fragment);
+  similarWizardsList.appendChild(fragment);
 };
 
 const wizards = getRandomWizards(4);
-fillDomElementByWizards(wizards);
+fillPageByWizards(wizards);
