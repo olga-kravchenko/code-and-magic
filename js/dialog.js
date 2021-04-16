@@ -1,8 +1,7 @@
 'use strict';
 
-(function () {
+(() => {
   const modal = document.querySelector(`.setup`);
-
   const avatar = document.querySelector(`.setup-open-icon`);
   const closeButton = modal.querySelector(`.setup-close`);
 
@@ -52,6 +51,7 @@
     showModal();
     addCallBacksToCloseModal();
     addCallBacksForForm();
+    window.movingDialog.resetCurrentDialogPosition();
   };
 
   const closePopup = () => {
@@ -65,6 +65,7 @@
 
   window.dialog = {
     modal,
+    avatar,
     closePopup,
   };
 })();

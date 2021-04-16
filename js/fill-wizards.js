@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const WIZARD_NAMES = [`Иван`, `Хуан Себастьян`, `Мария`, `Кристоф`, `Виктор`, `Юлия`, `Люпита`, `Вашингтон`];
   const WIZARD_LAST_NAMES = [`да Марья`, `Верон`, `Мирабелла`, `Вальц`, `Онопко`, `Топольницкая`, `Нионго`, `Ирвинг`];
   const WIZARD_COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
@@ -9,13 +9,10 @@
   const MIN_ARRAY_INDEX = 0;
 
   const similarWizardsBlock = window.dialog.modal.querySelector(`.setup-similar`);
-
   const coatColor = window.dialog.modal.querySelector(`.setup-wizard .wizard-coat`);
   const wizardEyesColor = window.dialog.modal.querySelector(`.setup-wizard .wizard-eyes`);
-
   const similarWizardsList = window.dialog.modal.querySelector(`.setup-similar-list`);
   const similarWizardTemplate = document.querySelector(`#similar-wizard-template`).content;
-
 
   const getRandomWizards = (quantity) => {
     const wizards = [];

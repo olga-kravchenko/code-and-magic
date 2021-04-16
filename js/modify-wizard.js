@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const fireBallColor = window.dialog.modal.querySelector(`.setup-fireball-wrap`);
   const inputWizardCoat = window.dialog.modal.querySelector(`input[name="coat-color"]`);
   const inputWizardEyes = window.dialog.modal.querySelector(`input[name="eyes-color"]`);

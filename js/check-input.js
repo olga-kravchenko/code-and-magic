@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const MIN_NAME_LENGTH = 2;
   const inputName = window.dialog.modal.querySelector(`.setup-user-name`);
 
@@ -12,7 +12,6 @@
     } else {
       inputName.setCustomValidity(``);
     }
-
     inputName.reportValidity();
   };
 
