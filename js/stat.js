@@ -46,7 +46,7 @@ window.renderStatistics = (ctx, names, times) => {
     if (name === `Вы`) {
       renderBar(ctx, CLOUD_X + GAP + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `rgba(255, 0, 0, 1)`, name, BAR_WIDTH, barHeight, time);
     } else {
-      renderBar(ctx, CLOUD_X + GAP + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `hsl(240, ${getRandomNumber(20, 100)}%, 50%)`, name, BAR_WIDTH, barHeight, time);
+      renderBar(ctx, CLOUD_X + GAP + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `hsl(240, ${window.util.getRandomNumber(20, 100)}%, 50%)`, name, BAR_WIDTH, barHeight, time);
     }
   }
 };
