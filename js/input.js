@@ -2,7 +2,7 @@
 
 (() => {
   const MIN_NAME_LENGTH = 2;
-  const inputName = window.dialog.modal.querySelector(`.setup-user-name`);
+  const inputName = window.modal.popup.querySelector(`.setup-user-name`);
 
   const checkInput = () => {
     const length = inputName.value.trim().length;
@@ -15,8 +15,8 @@
     inputName.reportValidity();
   };
 
-  window.checkInput = {
-    inputName,
-    checkInput,
+  window.input = {
+    name: inputName,
+    check: checkInput,
   };
 })();

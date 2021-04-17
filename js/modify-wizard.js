@@ -1,26 +1,30 @@
 'use strict';
 
 (() => {
-  const fireBallColor = window.dialog.modal.querySelector(`.setup-fireball-wrap`);
-  const inputWizardCoat = window.dialog.modal.querySelector(`input[name="coat-color"]`);
-  const inputWizardEyes = window.dialog.modal.querySelector(`input[name="eyes-color"]`);
-  const inputFireBall = window.dialog.modal.querySelector(`input[name="fireball-color"]`);
+  const wizardEyesColor = window.modal.popup.querySelector(`.setup-wizard .wizard-eyes`);
+  const coatColor = window.modal.popup.querySelector(`.setup-wizard .wizard-coat`);
+  const fireBallColor = window.modal.popup.querySelector(`.setup-fireball-wrap`);
+  const wizardCoatInput = window.modal.popup.querySelector(`input[name="coat-color"]`);
+  const wizardEyesInput = window.modal.popup.querySelector(`input[name="eyes-color"]`);
+  const fireballInput = window.modal.popup.querySelector(`input[name="fireball-color"]`);
 
   const changeCoatColor = () => {
-    window.util.getNewColor(window.fillWizards.WIZARD_COAT_COLORS, inputWizardCoat, window.fillWizards.coatColor);
+    window.util.setNewColor(window.wizardData.COAT_COLORS, wizardCoatInput, coatColor);
   };
 
   const changeWizardEyesColor = () => {
-    window.util.getNewColor(window.fillWizards.WIZARD_EYES_COLORS, inputWizardEyes, window.fillWizards.wizardEyesColor);
+    window.util.setNewColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyesColor);
   };
 
   const changeFireBallColor = () => {
-    window.util.getNewColor(window.fillWizards.FIREBALL_COLORS, inputFireBall, fireBallColor);
+    window.util.setNewColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBallColor);
   };
 
   window.modifyWizard = {
     fireBallColor,
-    inputFireBall,
+    fireballInput,
+    coatColor,
+    wizardEyesColor,
     changeCoatColor,
     changeWizardEyesColor,
     changeFireBallColor
