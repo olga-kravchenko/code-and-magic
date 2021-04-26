@@ -1,10 +1,10 @@
 'use strict';
 
 (() => {
-  const modal = document.querySelector(`.setup`);
   const avatarButton = document.querySelector(`.setup-open-icon`);
+  const modal = document.querySelector(`.setup`);
+  const form = modal.querySelector(`.setup-wizard-form`);
   const closeButton = modal.querySelector(`.setup-close`);
-  const similarWizardsBlock = modal.querySelector(`.setup-similar`);
 
   const onEscKeydown = (evt) => {
     if (evt.key === `Escape` && window.input.name !== document.activeElement) {
@@ -53,12 +53,10 @@
 
   const showModal = () => {
     modal.classList.remove(`hidden`);
-    similarWizardsBlock.classList.remove(`hidden`);
   };
 
   const hideModal = () => {
     modal.classList.add(`hidden`);
-    similarWizardsBlock.classList.add(`hidden`);
   };
 
   const openModal = () => {
@@ -74,8 +72,14 @@
     removeCallBacksForForm();
   };
 
+  const sendFormDataToServer = (evt) => {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), closeModal, window.util.errorHandler);
+  };
+
   avatarButton.addEventListener(`keydown`, onAvatarButtonEnterKeydown);
   avatarButton.addEventListener(`click`, openModal);
+  form.addEventListener(`submit`, sendFormDataToServer);
 
   window.modal = {
     popup: modal,

@@ -21,9 +21,29 @@
     }
   };
 
+  const errorHandler = (onError) => {
+    const errModal = document.createElement(`div`);
+    errModal.style = `
+    z-index: 100;
+    margin: 330px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: red;
+    border: 2px solid white;
+    opacity: 0.9;
+    width: 600px`;
+    errModal.style.position = `absolute`;
+    errModal.style.left = 0;
+    errModal.style.right = 0;
+    errModal.style.fontSize = `30px`;
+    errModal.textContent = onError;
+    document.body.insertAdjacentElement(`afterbegin`, errModal);
+  };
+
   window.util = {
     MIN_ARRAY_INDEX,
     getRandomNumber,
     setNewColor,
+    errorHandler,
   };
 })();
