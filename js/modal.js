@@ -74,14 +74,18 @@
 
   const sendFormDataToServer = (evt) => {
     evt.preventDefault();
-    window.backend.save(new FormData(form), closeModal, window.util.errorHandler);
+    window.backend.save(new FormData(form), closeModal, window.util.showErrorModal);
   };
 
-  avatarButton.addEventListener(`keydown`, onAvatarButtonEnterKeydown);
-  avatarButton.addEventListener(`click`, openModal);
-  form.addEventListener(`submit`, sendFormDataToServer);
+  const activate = () => {
+    avatarButton.addEventListener(`keydown`, onAvatarButtonEnterKeydown);
+    avatarButton.addEventListener(`click`, openModal);
+    form.addEventListener(`submit`, sendFormDataToServer);
+  };
+
 
   window.modal = {
+    activate,
     popup: modal,
     avatar: avatarButton,
   };

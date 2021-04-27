@@ -1,51 +1,48 @@
 'use strict';
 
 (() => {
-  const StatusCode = {
-    OK: 200,
-  };
+  const STATUS_CODE_OK = 200;
   const TIMEOUT_IN_MS = 10000;
-
-  const onLoadListener = (request, onLoad, onError) => {
-    request.addEventListener(`load`, () => {
-      if (request.status === StatusCode.OK) {
-        onLoad(request.response);
-      } else {
-        onError(`Статус ответа: ` + request.status + ` ` + request.statusText);
-      }
-    });
+  const URL = {
+    SAVE: `https://21.javascript.pages.academy/code-and-magick`,
+    LOAD: `https://21.javascript.pages.academy/code-and-magick/data`,
   };
 
-  const onErrorListeners = (request, onError) => {
-    request.addEventListener(`error`, () => {
-      onError(`Произошла ошибка соединения`);
-    });
-
-    request.addEventListener(`timeout`, () => {
-      onError(`Запрос не успел выполниться за ` + request.timeout + `мс`);
-    });
-    request.timeout = TIMEOUT_IN_MS;
+  const onLoadRequest = (request, onLoad, onError) => {
+    if (request.status === STATUS_CODE_OK) {
+      onLoad(request.response);
+    } else {
+      onError(`Статус ответа: ` + request.status + ` ` + request.statusText);
+    }
   };
 
-  const save = (data, onLoad, onError) => {
+  const onErrorRequest = (onError) => {
+    onError(`Произошла ошибка соединения`);
+  };
+
+  const onTimeoutRequest = (onError, timeout) => {
+    onError(`Запрос не успел выполниться за ` + timeout + `мс`);
+  };
+
+  const save = (data, onSuccess, onError) => {
     const request = new XMLHttpRequest();
     request.responseType = `json`;
-    const URL = `https://21.javascript.pages.academy/code-and-magick`;
-
-    onLoadListener(request, onLoad, onError);
-    onErrorListeners(request, onError);
-    request.open(`POST`, URL);
+    request.timeout = TIMEOUT_IN_MS;
+    request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
+    request.addEventListener(`error`, () => onErrorRequest(onError));
+    request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
+    request.open(`POST`, URL.SAVE);
     request.send(data);
   };
 
-  const load = (onLoad, onError) => {
+  const load = (onSuccess, onError) => {
     const request = new XMLHttpRequest();
     request.responseType = `json`;
-    const URL = `https://21.javascript.pages.academy/code-and-magick/data`;
-
-    onLoadListener(request, onLoad, onError);
-    onErrorListeners(request, onError);
-    request.open(`GET`, URL);
+    request.timeout = TIMEOUT_IN_MS;
+    request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
+    request.addEventListener(`error`, () => onErrorRequest(onError));
+    request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
+    request.open(`GET`, URL.LOAD);
     request.send();
   };
 

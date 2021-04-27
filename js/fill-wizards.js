@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const MAX_SIMILAR_WIZARD_COUNT = 4;
+  const MAX_SHOWN_SIMILAR_WIZARD_COUNT = 4;
   const similarWizardsList = window.modal.popup.querySelector(`.setup-similar-list`);
   const similarWizardTemplate = document.querySelector(`#similar-wizard-template`).content;
   const similarWizardsBlock = window.modal.popup.querySelector(`.setup-similar`);
@@ -16,13 +16,22 @@
 
   const fillPageByWizards = (wizards) => {
     const fragment = document.createDocumentFragment();
-    for (let i = 0; i < MAX_SIMILAR_WIZARD_COUNT; i++) {
-      const newWizard = getWizardDomElement(wizards[window.util.getRandomNumber(0, wizards.length)]);
-      fragment.appendChild(newWizard);
+    let wizardShown = [];
+    while (wizardShown.length < MAX_SHOWN_SIMILAR_WIZARD_COUNT) {
+      const randomNumber = window.util.getRandomNumber(0, wizards.length);
+      const wizard = wizards[randomNumber];
+      if (!wizardShown.includes(wizard)) {
+        wizardShown.push(wizard);
+        const newWizard = getWizardDomElement(wizard);
+        fragment.appendChild(newWizard);
+      }
     }
     similarWizardsList.appendChild(fragment);
     similarWizardsBlock.classList.remove(`hidden`);
+    return wizardShown;
   };
 
-  window.backend.load(fillPageByWizards, window.util.errorHandler);
+  window.fillWizards = {
+    fillPageByWizards,
+  };
 })();
