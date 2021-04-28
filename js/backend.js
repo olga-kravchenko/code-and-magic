@@ -24,26 +24,28 @@
     onError(`Запрос не успел выполниться за ` + timeout + `мс`);
   };
 
-  const save = (data, onSuccess, onError) => {
+  const sendRequest = (onSuccess, onError, requestMethod, data) => {
     const request = new XMLHttpRequest();
     request.responseType = `json`;
     request.timeout = TIMEOUT_IN_MS;
     request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
     request.addEventListener(`error`, () => onErrorRequest(onError));
     request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
-    request.open(`POST`, URL.SAVE);
-    request.send(data);
+    if (requestMethod === `POST`) {
+      request.open(requestMethod, URL.SAVE);
+      request.send(data);
+    } else if (requestMethod === `GET`) {
+      request.open(requestMethod, URL.LOAD);
+      request.send();
+    }
+  };
+
+  const save = (data, onSuccess, onError) => {
+    sendRequest(onSuccess, onError, `POST`, data);
   };
 
   const load = (onSuccess, onError) => {
-    const request = new XMLHttpRequest();
-    request.responseType = `json`;
-    request.timeout = TIMEOUT_IN_MS;
-    request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
-    request.addEventListener(`error`, () => onErrorRequest(onError));
-    request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
-    request.open(`GET`, URL.LOAD);
-    request.send();
+    sendRequest(onSuccess, onError, `GET`);
   };
 
   window.backend = {

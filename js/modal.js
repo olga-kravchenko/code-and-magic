@@ -38,17 +38,13 @@
   };
 
   const addCallBacksForForm = () => {
-    window.window.input.name.addEventListener(`input`, window.input.check);
-    window.modifyWizard.coatColor.addEventListener(`click`, window.modifyWizard.changeCoatColor);
-    window.modifyWizard.wizardEyesColor.addEventListener(`click`, window.modifyWizard.changeWizardEyesColor);
-    window.modifyWizard.fireBallColor.addEventListener(`click`, window.modifyWizard.changeFireBallColor);
+    window.input.addListener();
+    window.modifyWizard.addListeners();
   };
 
   const removeCallBacksForForm = () => {
-    window.window.input.name.removeEventListener(`input`, window.window.input.check);
-    window.modifyWizard.coatColor.removeEventListener(`click`, window.modifyWizard.changeCoatColor);
-    window.modifyWizard.wizardEyesColor.removeEventListener(`click`, window.modifyWizard.changeWizardEyesColor);
-    window.modifyWizard.fireBallColor.removeEventListener(`click`, window.modifyWizard.changeFireBallColor);
+    window.input.removeListener();
+    window.modifyWizard.removeListener();
   };
 
   const showModal = () => {
@@ -63,13 +59,15 @@
     showModal();
     addCallBacksToCloseModal();
     addCallBacksForForm();
-    window.movingModal.reset();
+    window.moveModal.addListeners();
+    window.moveModal.resetPosition();
   };
 
   const closeModal = () => {
     hideModal();
     removeCallBacksToCloseModal();
     removeCallBacksForForm();
+    window.moveModal.removeListeners();
   };
 
   const sendFormDataToServer = (evt) => {
@@ -82,7 +80,6 @@
     avatarButton.addEventListener(`click`, openModal);
     form.addEventListener(`submit`, sendFormDataToServer);
   };
-
 
   window.modal = {
     activate,

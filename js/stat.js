@@ -30,12 +30,7 @@
     renderText(ctx, x, yTextTime, time);
   };
 
-  window.renderStatistics = (ctx, names, times) => {
-    const maxTime = Math.max(...times);
-    renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, `rgba(0, 0, 0, 0.7)`);
-    renderCloud(ctx, CLOUD_X, CLOUD_Y, `#fff`);
-    renderText(ctx, 140, 30, `Ура вы победили!`);
-    renderText(ctx, 140, 50, `Список результатов:`);
+  const renderUsers = (ctx, names, times, maxTime) => {
     for (let i = 0; i < names.length; i++) {
       const name = names[i];
       const time = Math.round(times[i]);
@@ -46,5 +41,14 @@
         renderBar(ctx, CLOUD_X + GAP + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, barEnd + GAP, barEnd - barHeight, barEnd - barHeight - 2 * GAP, `hsl(240, ${window.util.getRandomNumber(20, 100)}%, 50%)`, name, BAR_WIDTH, barHeight, time);
       }
     }
+  };
+
+  window.renderStatistics = (ctx, names, times) => {
+    const maxTime = Math.max(...times);
+    renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, `rgba(0, 0, 0, 0.7)`);
+    renderCloud(ctx, CLOUD_X, CLOUD_Y, `#fff`);
+    renderText(ctx, 140, 30, `Ура вы победили!`);
+    renderText(ctx, 140, 50, `Список результатов:`);
+    renderUsers(ctx, names, times, maxTime);
   };
 })();

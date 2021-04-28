@@ -939,7 +939,7 @@ input[type=radio]:checked + .review-mark-label {
 
 .modal-error {
   position: absolute;
-  top: -65px;
+  top: 30px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -950,7 +950,7 @@ input[type=radio]:checked + .review-mark-label {
   text-align: center;
   background-color: red;
   border: 2px solid white;
-  box-shadow: 0 14px 28px rgb(0 0 0 / 49%), 0 -8px 51px rgb(0 0 0 / 50%);
+  box-shadow: 0 0 11px 4px white;
   opacity: 0.9;
 }
 
