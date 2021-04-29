@@ -41,25 +41,19 @@
     }
   };
 
-  const addListeners = () => {
-    avatar.addEventListener(`mousedown`, (evt) => {
-      evt.preventDefault();
-      startCoordinates = {
-        x: evt.clientX,
-        y: evt.clientY,
-      };
-      document.addEventListener(`mousemove`, onMouseMove);
-      document.addEventListener(`mouseup`, onMouseUp);
-    });
+  const onMouseDown = (evt) => {
+    evt.preventDefault();
+    startCoordinates = {
+      x: evt.clientX,
+      y: evt.clientY,
+    };
+    document.addEventListener(`mousemove`, onMouseMove);
+    document.addEventListener(`mouseup`, onMouseUp);
   };
 
-  const removeListeners = () => {
-    avatar.removeEventListener(`mousedown`, (evt) => {
-      evt.preventDefault();
-      document.removeEventListener(`mousemove`, onMouseMove);
-      document.removeEventListener(`mouseup`, onMouseUp);
-    });
-  };
+  const addListeners = () => avatar.addEventListener(`mousedown`, onMouseDown);
+
+  const removeListeners = () => avatar.removeEventListener(`mousedown`, onMouseDown);
 
   window.moveModal = {
     addListeners,

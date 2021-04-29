@@ -7,12 +7,18 @@
   const wizardCoatInput = window.modal.popup.querySelector(`input[name="coat-color"]`);
   const wizardEyesInput = window.modal.popup.querySelector(`input[name="eyes-color"]`);
   const fireballInput = window.modal.popup.querySelector(`input[name="fireball-color"]`);
+  let newColor;
 
-  const setNewColor = (colors, input, styleOfElement) => {
-    let newColor = colors[window.util.getRandomNumber(window.util.MIN_ARRAY_INDEX, colors.length)];
+  const setUniqueColor = (colors, input) => {
+    newColor = colors[window.util.getRandomNumber(window.util.MIN_ARRAY_INDEX, colors.length)];
     while (newColor === input.value) {
       newColor = colors[window.util.getRandomNumber(window.util.MIN_ARRAY_INDEX, colors.length)];
     }
+    return newColor;
+  };
+
+  const setRandomColor = (colors, input, styleOfElement) => {
+    setUniqueColor(colors, input);
     if (styleOfElement === fireBallColor) {
       styleOfElement.style.background = newColor;
       fireballInput.value = newColor;
@@ -22,17 +28,11 @@
     }
   };
 
-  const changeCoatColor = () => {
-    setNewColor(window.wizardData.COAT_COLORS, wizardCoatInput, coatColor);
-  };
+  const changeCoatColor = () => setRandomColor(window.wizardData.COAT_COLORS, wizardCoatInput, coatColor);
 
-  const changeWizardEyesColor = () => {
-    setNewColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyesColor);
-  };
+  const changeWizardEyesColor = () => setRandomColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyesColor);
 
-  const changeFireBallColor = () => {
-    setNewColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBallColor);
-  };
+  const changeFireBallColor = () => setRandomColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBallColor);
 
   const addListeners = () => {
     coatColor.addEventListener(`click`, changeCoatColor);

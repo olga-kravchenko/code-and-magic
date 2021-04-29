@@ -12,7 +12,7 @@
     if (request.status === STATUS_CODE_OK) {
       onLoad(request.response);
     } else {
-      onError(`Статус ответа: ` + request.status + ` ` + request.statusText);
+      onError(`Статус ответа: ${request.status} ${request.statusText}`);
     }
   };
 
@@ -21,7 +21,7 @@
   };
 
   const onTimeoutRequest = (onError, timeout) => {
-    onError(`Запрос не успел выполниться за ` + timeout + `мс`);
+    onError(`Запрос не успел выполниться за ${timeout} мс`);
   };
 
   const sendRequest = (onSuccess, onError, requestMethod, data) => {

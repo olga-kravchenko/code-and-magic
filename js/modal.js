@@ -28,14 +28,14 @@
   };
 
   const addCallBacksToCloseModal = () => {
-    closeButton.addEventListener(`keydown`, onCloseEnterKeydown);
     document.addEventListener(`keydown`, onEscKeydown);
+    closeButton.addEventListener(`keydown`, onCloseEnterKeydown);
     closeButton.addEventListener(`click`, closeModal);
   };
 
   const removeCallBacksToCloseModal = () => {
-    closeButton.removeEventListener(`keydown`, onCloseEnterKeydown);
     document.removeEventListener(`keydown`, onEscKeydown);
+    closeButton.removeEventListener(`keydown`, onCloseEnterKeydown);
     closeButton.removeEventListener(`click`, closeModal);
   };
 
@@ -49,13 +49,9 @@
     window.modifyWizard.removeListener();
   };
 
-  const showModal = () => {
-    modal.classList.remove(`hidden`);
-  };
+  const showModal = () => modal.classList.remove(`hidden`);
 
-  const hideModal = () => {
-    modal.classList.add(`hidden`);
-  };
+  const hideModal = () => modal.classList.add(`hidden`);
 
   const openModal = () => {
     showModal();

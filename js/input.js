@@ -6,18 +6,14 @@
 
   const checkInput = () => {
     const length = inputName.value.trim().length;
-    const message = length < MIN_NAME_LENGTH ? `Ещё ` + (MIN_NAME_LENGTH - length) + ` симв.` : ``;
+    const message = length < MIN_NAME_LENGTH ? `Ещё ${MIN_NAME_LENGTH - length} симв.` : ``;
     inputName.setCustomValidity(message);
     inputName.reportValidity();
   };
 
-  const addListener = () => {
-    inputName.addEventListener(`input`, checkInput);
-  };
+  const addListener = () => inputName.addEventListener(`input`, checkInput);
 
-  const removeListener = () => {
-    inputName.removeEventListener(`input`, checkInput);
-  };
+  const removeListener = () => inputName.removeEventListener(`input`, checkInput);
 
   window.input = {
     addListener,
