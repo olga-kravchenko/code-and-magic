@@ -5,9 +5,11 @@
   const modal = document.querySelector(`.setup`);
   const form = modal.querySelector(`.setup-wizard-form`);
   const closeButton = modal.querySelector(`.setup-close`);
+  const inputName = modal.querySelector(`.setup-user-name`);
 
   const onEscKeydown = (evt) => {
-    if (evt.key === `Escape` && window.input.name !== document.activeElement) {
+    const isInputNameActive = inputName === document.activeElement;
+    if (evt.key === `Escape` && !isInputNameActive) {
       evt.preventDefault();
       closeModal();
     }

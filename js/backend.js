@@ -31,13 +31,9 @@
     request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
     request.addEventListener(`error`, () => onErrorRequest(onError));
     request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
-    if (requestMethod === `POST`) {
-      request.open(requestMethod, URL.SAVE);
-      request.send(data);
-    } else if (requestMethod === `GET`) {
-      request.open(requestMethod, URL.LOAD);
-      request.send();
-    }
+    const url = requestMethod === `POST` ? URL.SAVE : URL.LOAD;
+    request.open(requestMethod, url);
+    request.send(data);
   };
 
   const save = (data, onSuccess, onError) => {
