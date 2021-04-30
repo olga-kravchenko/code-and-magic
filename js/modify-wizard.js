@@ -8,25 +8,43 @@
   const wizardEyesInput = window.modal.popup.querySelector(`input[name="eyes-color"]`);
   const fireballInput = window.modal.popup.querySelector(`input[name="fireball-color"]`);
 
-  const changeCoatColor = () => {
-    window.util.setNewColor(window.wizardData.COAT_COLORS, wizardCoatInput, coatColor);
+  const getUniqueColor = (colors, input) => {
+    let newColor = colors[window.util.getRandomNumber(window.util.MIN_ARRAY_INDEX, colors.length)];
+    while (newColor === input.value) {
+      newColor = colors[window.util.getRandomNumber(window.util.MIN_ARRAY_INDEX, colors.length)];
+    }
+    return newColor;
   };
 
-  const changeWizardEyesColor = () => {
-    window.util.setNewColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyesColor);
+  const setRandomColor = (colors, input, styleOfElement) => {
+    let newColor = getUniqueColor(colors, input);
+    if (styleOfElement === fireBallColor) {
+      styleOfElement.style.background = newColor;
+      fireballInput.value = newColor;
+    } else {
+      styleOfElement.style.fill = newColor;
+      input.value = newColor;
+    }
   };
 
-  const changeFireBallColor = () => {
-    window.util.setNewColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBallColor);
+  const changeCoatColor = () => setRandomColor(window.wizardData.COAT_COLORS, wizardCoatInput, coatColor);
+  const changeWizardEyesColor = () => setRandomColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyesColor);
+  const changeFireBallColor = () => setRandomColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBallColor);
+
+  const addListeners = () => {
+    coatColor.addEventListener(`click`, changeCoatColor);
+    wizardEyesColor.addEventListener(`click`, changeWizardEyesColor);
+    fireBallColor.addEventListener(`click`, changeFireBallColor);
+  };
+
+  const removeListener = () => {
+    coatColor.removeEventListener(`click`, changeCoatColor);
+    wizardEyesColor.removeEventListener(`click`, changeWizardEyesColor);
+    fireBallColor.removeEventListener(`click`, changeFireBallColor);
   };
 
   window.modifyWizard = {
-    fireBallColor,
-    fireballInput,
-    coatColor,
-    wizardEyesColor,
-    changeCoatColor,
-    changeWizardEyesColor,
-    changeFireBallColor
+    addListeners,
+    removeListener,
   };
 })();

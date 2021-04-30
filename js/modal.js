@@ -1,13 +1,15 @@
 'use strict';
 
 (() => {
-  const modal = document.querySelector(`.setup`);
   const avatarButton = document.querySelector(`.setup-open-icon`);
+  const modal = document.querySelector(`.setup`);
+  const form = modal.querySelector(`.setup-wizard-form`);
   const closeButton = modal.querySelector(`.setup-close`);
-  const similarWizardsBlock = modal.querySelector(`.setup-similar`);
+  const inputName = modal.querySelector(`.setup-user-name`);
 
   const onEscKeydown = (evt) => {
-    if (evt.key === `Escape` && window.input.name !== document.activeElement) {
+    const isInputNameActive = inputName === document.activeElement;
+    if (evt.key === `Escape` && !isInputNameActive) {
       evt.preventDefault();
       closeModal();
     }
@@ -26,58 +28,58 @@
   };
 
   const addCallBacksToCloseModal = () => {
-    closeButton.addEventListener(`keydown`, onCloseEnterKeydown);
     document.addEventListener(`keydown`, onEscKeydown);
+    closeButton.addEventListener(`keydown`, onCloseEnterKeydown);
     closeButton.addEventListener(`click`, closeModal);
   };
 
   const removeCallBacksToCloseModal = () => {
-    closeButton.removeEventListener(`keydown`, onCloseEnterKeydown);
     document.removeEventListener(`keydown`, onEscKeydown);
+    closeButton.removeEventListener(`keydown`, onCloseEnterKeydown);
     closeButton.removeEventListener(`click`, closeModal);
   };
 
   const addCallBacksForForm = () => {
-    window.window.input.name.addEventListener(`input`, window.input.check);
-    window.modifyWizard.coatColor.addEventListener(`click`, window.modifyWizard.changeCoatColor);
-    window.modifyWizard.wizardEyesColor.addEventListener(`click`, window.modifyWizard.changeWizardEyesColor);
-    window.modifyWizard.fireBallColor.addEventListener(`click`, window.modifyWizard.changeFireBallColor);
+    window.input.addListener();
+    window.modifyWizard.addListeners();
   };
 
   const removeCallBacksForForm = () => {
-    window.window.input.name.removeEventListener(`input`, window.window.input.check);
-    window.modifyWizard.coatColor.removeEventListener(`click`, window.modifyWizard.changeCoatColor);
-    window.modifyWizard.wizardEyesColor.removeEventListener(`click`, window.modifyWizard.changeWizardEyesColor);
-    window.modifyWizard.fireBallColor.removeEventListener(`click`, window.modifyWizard.changeFireBallColor);
+    window.input.removeListener();
+    window.modifyWizard.removeListener();
   };
 
-  const showModal = () => {
-    modal.classList.remove(`hidden`);
-    similarWizardsBlock.classList.remove(`hidden`);
-  };
-
-  const hideModal = () => {
-    modal.classList.add(`hidden`);
-    similarWizardsBlock.classList.add(`hidden`);
-  };
+  const showModal = () => modal.classList.remove(`hidden`);
+  const hideModal = () => modal.classList.add(`hidden`);
 
   const openModal = () => {
     showModal();
     addCallBacksToCloseModal();
     addCallBacksForForm();
-    window.movingModal.reset();
+    window.moveModal.addListener();
+    window.moveModal.resetPosition();
   };
 
   const closeModal = () => {
     hideModal();
     removeCallBacksToCloseModal();
     removeCallBacksForForm();
+    window.moveModal.removeListener();
   };
 
-  avatarButton.addEventListener(`keydown`, onAvatarButtonEnterKeydown);
-  avatarButton.addEventListener(`click`, openModal);
+  const sendFormDataToServer = (evt) => {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), closeModal, window.util.showErrorModal);
+  };
+
+  const activate = () => {
+    avatarButton.addEventListener(`keydown`, onAvatarButtonEnterKeydown);
+    avatarButton.addEventListener(`click`, openModal);
+    form.addEventListener(`submit`, sendFormDataToServer);
+  };
 
   window.modal = {
+    activate,
     popup: modal,
     avatar: avatarButton,
   };

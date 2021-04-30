@@ -23,9 +23,9 @@
 
   window.gameSetting = {
     fireballSize,
-    getFireballSpeed,
     wizardSpeed,
     wizardWidth,
+    getFireballSpeed,
     getWizardHeight,
     getWizardX,
     getWizardY,
