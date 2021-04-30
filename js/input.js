@@ -12,7 +12,6 @@
   };
 
   const addListener = () => inputName.addEventListener(`input`, checkInput);
-
   const removeListener = () => inputName.removeEventListener(`input`, checkInput);
 
   window.input = {

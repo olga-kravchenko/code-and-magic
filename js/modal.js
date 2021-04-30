@@ -50,14 +50,13 @@
   };
 
   const showModal = () => modal.classList.remove(`hidden`);
-
   const hideModal = () => modal.classList.add(`hidden`);
 
   const openModal = () => {
     showModal();
     addCallBacksToCloseModal();
     addCallBacksForForm();
-    window.moveModal.addListeners();
+    window.moveModal.addListener();
     window.moveModal.resetPosition();
   };
 
@@ -65,7 +64,7 @@
     hideModal();
     removeCallBacksToCloseModal();
     removeCallBacksForForm();
-    window.moveModal.removeListeners();
+    window.moveModal.removeListener();
   };
 
   const sendFormDataToServer = (evt) => {

@@ -51,13 +51,12 @@
     document.addEventListener(`mouseup`, onMouseUp);
   };
 
-  const addListeners = () => avatar.addEventListener(`mousedown`, onMouseDown);
-
-  const removeListeners = () => avatar.removeEventListener(`mousedown`, onMouseDown);
+  const addListener = () => avatar.addEventListener(`mousedown`, onMouseDown);
+  const removeListener = () => avatar.removeEventListener(`mousedown`, onMouseDown);
 
   window.moveModal = {
-    addListeners,
-    removeListeners,
+    addListener,
+    removeListener,
     resetPosition,
   };
 })();

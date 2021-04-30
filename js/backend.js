@@ -16,13 +16,8 @@
     }
   };
 
-  const onErrorRequest = (onError) => {
-    onError(`Произошла ошибка соединения`);
-  };
-
-  const onTimeoutRequest = (onError, timeout) => {
-    onError(`Запрос не успел выполниться за ${timeout} мс`);
-  };
+  const onErrorRequest = (onError) => onError(`Произошла ошибка соединения`);
+  const onTimeoutRequest = (onError, timeout) => onError(`Запрос не успел выполниться за ${timeout} мс`);
 
   const sendRequest = (onSuccess, onError, requestMethod, data) => {
     const request = new XMLHttpRequest();
@@ -36,13 +31,8 @@
     request.send(data);
   };
 
-  const save = (data, onSuccess, onError) => {
-    sendRequest(onSuccess, onError, `POST`, data);
-  };
-
-  const load = (onSuccess, onError) => {
-    sendRequest(onSuccess, onError, `GET`);
-  };
+  const save = (data, onSuccess, onError) => sendRequest(onSuccess, onError, `POST`, data);
+  const load = (onSuccess, onError) => sendRequest(onSuccess, onError, `GET`);
 
   window.backend = {
     save,
