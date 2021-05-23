@@ -41,12 +41,12 @@
 
   const addCallBacksForForm = () => {
     window.input.addListener();
-    window.modifyWizard.addListeners();
+    window.wizardsSetting.addListeners();
   };
 
   const removeCallBacksForForm = () => {
     window.input.removeListener();
-    window.modifyWizard.removeListener();
+    window.wizardsSetting.removeListener();
   };
 
   const showModal = () => modal.classList.remove(`hidden`);
