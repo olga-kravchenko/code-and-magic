@@ -87,12 +87,12 @@
 
   const changeCoatColor = () => {
     coatColor = setRandomColor(window.wizardData.COAT_COLORS, wizardCoatInput, wizardCoat);
-    updateWizards();
+    window.util.debounce();
   };
 
   const changeWizardEyesColor = () => {
     eyesColor = setRandomColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyes);
-    updateWizards();
+    window.util.debounce();
   };
 
   const changeFireBallColor = () => setRandomColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBallColor);
@@ -116,6 +116,7 @@
 
   window.wizardsSetting = {
     renderUpdateWizards,
+    updateWizards,
     addListeners,
     removeListener,
   };
