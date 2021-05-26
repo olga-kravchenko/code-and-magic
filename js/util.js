@@ -8,7 +8,7 @@
     if (lastTimeout) {
       window.clearTimeout(lastTimeout);
     }
-    lastTimeout = window.setTimeout(function () {
+    lastTimeout = window.setTimeout(() => {
       window.wizardsSetting.updateWizards();
     }, 500);
   };
