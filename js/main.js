@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const onSuccess = window.fillWizards.fillPageByWizards;
+  const onSuccess = window.wizardsSetting.renderUpdateWizards;
   const onError = window.util.showErrorModal;
 
   window.backend.load(onSuccess, onError);

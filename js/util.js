@@ -2,6 +2,16 @@
 
 (() => {
   const MIN_ARRAY_INDEX = 0;
+  let lastTimeout;
+
+  const debounce = () => {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(() => {
+      window.wizardsSetting.updateWizards();
+    }, 500);
+  };
 
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
@@ -20,6 +30,7 @@
 
   window.util = {
     MIN_ARRAY_INDEX,
+    debounce,
     getRandomNumber,
     showErrorModal,
   };
