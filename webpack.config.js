@@ -5,6 +5,7 @@ module.exports = {
     `./js/util.js`,
     `./js/backend.js`,
     `./js/wizard-data.js`,
+    `./js/avatar.js`,
     `./js/modal.js`,
     `./js/move-modal.js`,
     `./js/wizards-setting.js`,

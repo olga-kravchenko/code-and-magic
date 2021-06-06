@@ -41,6 +41,7 @@ const removeCallBacksToCloseModal = () => {
 const addCallBacksForForm = () => {
   window.input.addListener();
   window.wizardsSetting.addListeners();
+  window.avatar.addListener();
 };
 
 const removeCallBacksForForm = () => {
