@@ -2,7 +2,7 @@
 
 const STATUS_CODE_OK = 200;
 const TIMEOUT_IN_MS = 10000;
-const URL = {
+const SERVER_URL = {
   SAVE: `https://21.javascript.pages.academy/code-and-magick`,
   LOAD: `https://21.javascript.pages.academy/code-and-magick/data`,
 };
@@ -25,7 +25,7 @@ const sendRequest = (onSuccess, onError, requestMethod, data) => {
   request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
   request.addEventListener(`error`, () => onErrorRequest(onError));
   request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
-  const url = requestMethod === `POST` ? URL.SAVE : URL.LOAD;
+  const url = requestMethod === `POST` ? SERVER_URL.SAVE : SERVER_URL.LOAD;
   request.open(requestMethod, url);
   request.send(data);
 };
