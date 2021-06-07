@@ -70,6 +70,7 @@ const closeModal = () => {
 const sendFormDataToServer = (evt) => {
   evt.preventDefault();
   window.backend.save(new FormData(form), closeModal, window.util.showErrorModal);
+  avatarButton.src = window.avatar.reader.result;
 };
 
 const activate = () => {

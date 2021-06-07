@@ -7,7 +7,6 @@ const wizardCoat = window.modal.popup.querySelector(`.setup-wizard .wizard-coat`
 const fireBall = window.modal.popup.querySelector(`.setup-fireball-wrap`);
 const wizardCoatInput = window.modal.popup.querySelector(`input[name="coat-color"]`);
 const wizardEyesInput = window.modal.popup.querySelector(`input[name="eyes-color"]`);
-
 const fireballInput = window.modal.popup.querySelector(`input[name="fireball-color"]`);
 const similarWizardsList = window.modal.popup.querySelector(`.setup-similar-list`);
 const similarWizardTemplate = document.querySelector(`#similar-wizard-template`).content;
@@ -86,28 +85,28 @@ const setRandomColor = (colors, input, clickedElement) => {
   }
 };
 
-const changeCoatColor = () => {
+const onWizardCoatClickChangeColor = () => {
   setRandomColor(window.wizardData.COAT_COLORS, wizardCoatInput, wizardCoat);
   window.util.debounce();
 };
 
-const changeWizardEyesColor = () => {
+const onWizardEyesClickChangeColor = () => {
   setRandomColor(window.wizardData.EYES_COLORS, wizardEyesInput, wizardEyes);
   window.util.debounce();
 };
 
-const changeFireBallColor = () => setRandomColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBall);
+const onFireBallClickChangeColor = () => setRandomColor(window.wizardData.FIREBALL_COLORS, fireballInput, fireBall);
 
 const addListeners = () => {
-  wizardCoat.addEventListener(`click`, changeCoatColor);
-  wizardEyes.addEventListener(`click`, changeWizardEyesColor);
-  fireBall.addEventListener(`click`, changeFireBallColor);
+  wizardCoat.addEventListener(`click`, onWizardCoatClickChangeColor);
+  wizardEyes.addEventListener(`click`, onWizardEyesClickChangeColor);
+  fireBall.addEventListener(`click`, onFireBallClickChangeColor);
 };
 
 const removeListener = () => {
-  wizardCoat.removeEventListener(`click`, changeCoatColor);
-  wizardEyes.removeEventListener(`click`, changeWizardEyesColor);
-  fireBall.removeEventListener(`click`, changeFireBallColor);
+  wizardCoat.removeEventListener(`click`, onWizardCoatClickChangeColor);
+  wizardEyes.removeEventListener(`click`, onWizardEyesClickChangeColor);
+  fireBall.removeEventListener(`click`, onFireBallClickChangeColor);
 };
 
 const renderUpdateWizards = (data) => {

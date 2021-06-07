@@ -2,36 +2,32 @@
 
 const FILE_TYPES = [`gif`, `jpg`, `jpeg`, `png`];
 
-const avatar = document.querySelector(`.setup-open-icon`);
 const fileSelection = document.querySelector(`.upload input[type=file]`);
 const avatarPreview = document.querySelector(`.setup-user-pic`);
 
 const reader = new FileReader();
 
-const changeAvatarSrc = () => {
+const onReaderLoadChangeUrl = () => {
   avatarPreview.src = reader.result;
-  avatar.src = reader.result;
 };
 
-const newAvatar = () => {
+const onFileSelectionChange = () => {
   const file = fileSelection.files[0];
   const fileName = file.name.toLowerCase();
+  reader.readAsDataURL(file);
+  const checkEndOfTheName = (type) => fileName.endsWith(type);
+  const isMatchingTheFileType = FILE_TYPES.some(checkEndOfTheName);
 
-  const matchingTypes = FILE_TYPES.some((type) => {
-    return fileName.endsWith(type);
-  });
-
-  if (matchingTypes) {
-    reader.addEventListener(`load`, changeAvatarSrc);
-    reader.readAsDataURL(file);
+  if (isMatchingTheFileType) {
+    reader.addEventListener(`load`, onReaderLoadChangeUrl);
   }
 };
 
-const addListener = () => {
-  fileSelection.addEventListener(`change`, newAvatar);
-};
+const addListener = () => fileSelection.addEventListener(`change`, onFileSelectionChange);
 
 window.avatar = {
   addListener,
+  reader,
+  avatarPreview,
 };
 
