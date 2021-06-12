@@ -1,6 +1,6 @@
 'use strict';
 
-const onSuccess = window.wizardsSetting.renderUpdateWizards;
+const onSuccess = window.wizard.render;
 const onError = window.util.showErrorModal;
 
 window.backend.load(onSuccess, onError);

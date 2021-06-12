@@ -26,27 +26,35 @@ const onAvatarButtonEnterKeydown = (evt) => {
   }
 };
 
+const onAvatarButtonClick = () => {
+  openModal();
+};
+
+const onCloseButtonClick = () => {
+  closeModal();
+};
+
 const addCallBacksToCloseModal = () => {
   document.addEventListener(`keydown`, onEscKeydown);
   closeButton.addEventListener(`keydown`, onCloseEnterKeydown);
-  closeButton.addEventListener(`click`, closeModal);
+  closeButton.addEventListener(`click`, onCloseButtonClick);
 };
 
 const removeCallBacksToCloseModal = () => {
   document.removeEventListener(`keydown`, onEscKeydown);
   closeButton.removeEventListener(`keydown`, onCloseEnterKeydown);
-  closeButton.removeEventListener(`click`, closeModal);
+  closeButton.removeEventListener(`click`, onCloseButtonClick);
 };
 
 const addCallBacksForForm = () => {
   window.input.addListener();
-  window.wizardsSetting.addListeners();
+  window.wizard.addListeners();
   window.avatar.addListener();
 };
 
 const removeCallBacksForForm = () => {
   window.input.removeListener();
-  window.wizardsSetting.removeListener();
+  window.wizard.removeListener();
 };
 
 const showModal = () => modal.classList.remove(`hidden`);
@@ -67,7 +75,7 @@ const closeModal = () => {
   window.moveModal.removeListener();
 };
 
-const sendFormDataToServer = (evt) => {
+const onFormDataToServerSubmit = (evt) => {
   evt.preventDefault();
   window.backend.save(new FormData(form), closeModal, window.util.showErrorModal);
   avatarButton.src = window.avatar.reader.result;
@@ -75,8 +83,8 @@ const sendFormDataToServer = (evt) => {
 
 const activate = () => {
   avatarButton.addEventListener(`keydown`, onAvatarButtonEnterKeydown);
-  avatarButton.addEventListener(`click`, openModal);
-  form.addEventListener(`submit`, sendFormDataToServer);
+  avatarButton.addEventListener(`click`, onAvatarButtonClick);
+  form.addEventListener(`submit`, onFormDataToServerSubmit);
 };
 
 window.modal = {

@@ -2,8 +2,10 @@
 
 const INITIAL_POSITION_TOP = `80px`;
 const INITIAL_POSITION_LEFT = `50%`;
+
 const modal = document.querySelector(`.setup`);
 const avatar = modal.querySelector(`.upload`);
+
 let isDragged;
 let startCoordinates;
 

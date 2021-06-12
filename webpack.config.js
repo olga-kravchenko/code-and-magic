@@ -8,7 +8,7 @@ module.exports = {
     `./js/avatar.js`,
     `./js/modal.js`,
     `./js/move-modal.js`,
-    `./js/wizards-setting.js`,
+    `./js/wizard.js`,
     `./js/input.js`,
     `./js/main.js`,
     `./js/game-setting.js`,

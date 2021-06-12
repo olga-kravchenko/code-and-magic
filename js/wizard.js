@@ -56,7 +56,7 @@ const comparator = (left, right) => {
   return rankDifference;
 };
 
-const updateWizards = () => {
+const update = () => {
   const sortedWizard = wizards.sort(comparator);
   fillPageByWizards(sortedWizard);
 };
@@ -109,14 +109,14 @@ const removeListener = () => {
   fireBall.removeEventListener(`click`, onFireBallClickChangeColor);
 };
 
-const renderUpdateWizards = (data) => {
+const render = (data) => {
   wizards = data;
-  updateWizards();
+  update();
 };
 
-window.wizardsSetting = {
-  renderUpdateWizards,
-  updateWizards,
+window.wizard = {
+  render,
+  update,
   addListeners,
   removeListener,
 };

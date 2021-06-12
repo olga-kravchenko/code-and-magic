@@ -2,12 +2,13 @@
 
 const STATUS_CODE_OK = 200;
 const TIMEOUT_IN_MS = 10000;
-const SERVER_URL = {
+
+const ServerUrl = {
   SAVE: `https://21.javascript.pages.academy/code-and-magick`,
   LOAD: `https://21.javascript.pages.academy/code-and-magick/data`,
 };
 
-const onLoadRequest = (request, onLoad, onError) => {
+const onRequestLoad = (request, onLoad, onError) => {
   if (request.status === STATUS_CODE_OK) {
     onLoad(request.response);
   } else {
@@ -15,17 +16,17 @@ const onLoadRequest = (request, onLoad, onError) => {
   }
 };
 
-const onErrorRequest = (onError) => onError(`Произошла ошибка соединения`);
-const onTimeoutRequest = (onError, timeout) => onError(`Запрос не успел выполниться за ${timeout} мс`);
+const onRequestError = (onError) => onError(`Произошла ошибка соединения`);
+const onRequestTimeout = (onError, timeout) => onError(`Запрос не успел выполниться за ${timeout} мс`);
 
 const sendRequest = (onSuccess, onError, requestMethod, data) => {
   const request = new XMLHttpRequest();
   request.responseType = `json`;
   request.timeout = TIMEOUT_IN_MS;
-  request.addEventListener(`load`, () => onLoadRequest(request, onSuccess, onError));
-  request.addEventListener(`error`, () => onErrorRequest(onError));
-  request.addEventListener(`timeout`, () => onTimeoutRequest(onError, request.timeout));
-  const url = requestMethod === `POST` ? SERVER_URL.SAVE : SERVER_URL.LOAD;
+  request.addEventListener(`load`, () => onRequestLoad(request, onSuccess, onError));
+  request.addEventListener(`error`, () => onRequestError(onError));
+  request.addEventListener(`timeout`, () => onRequestTimeout(onError, request.timeout));
+  const url = requestMethod === `POST` ? ServerUrl.SAVE : ServerUrl.LOAD;
   request.open(requestMethod, url);
   request.send(data);
 };
